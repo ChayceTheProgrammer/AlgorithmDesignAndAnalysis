@@ -1,0 +1,10 @@
+Homework Review - CSCE411 (HW 1,2,3,4)
+Wikipedia Reading Pages for Exam1
+
+
+-Hw5q1: Longest Common Subsequence
+	https://en.wikipedia.org/wiki/Longest_common_subsequence
+-HW5q2: Matrix Chain Multiplication Optimization Problem
+	https://en.wikipedia.org/wiki/Matrix_chain_multiplication
+-HW5q3:
+	https://www.geeksforgeeks.org/properties-of-asymptotic-notations/#:~:text=a%20function%20f%28n%29.%20For,f%28n%29%20asymptotically.%20O%20notation

@@ -1,0 +1,21 @@
+Tips to Prepare
+-Same Style as Quizzes (on Canvas but on Zoom @6pm)
+-Use previous quizzes and hw for studying
+-Catch up on readings
+    a. textbook CRLS
+    b. perusall
+-for each algorithm:
+    a. know how it works
+    b. know its runtime and how to find it
+    c. know how it compares to other algo's
+-study algorithmic problems
+-watch videos
+
+Logistics:
+-Must Sign in on Zoom before taking exam (code needed)
+-Use Phone and Prop Effectively (screenshare TV from iPad....hehehehehehehheheheh)
+    Must have Laptop Screen and Myself in Frame
+- 50 Minutes @ 6pm
+- Allowed Scratch Paper and Pencils
+-Ask Questions in Chat
+-Submit exam and message in Chat to ensure exam is completed THEN I can leave

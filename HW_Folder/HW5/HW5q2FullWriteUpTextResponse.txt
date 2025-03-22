@@ -1,0 +1,123 @@
+CSCE411 HW 5 Question 2 Full WriteUp
+Certainly! I'll walk you through the solution process 
+for finding the optimal parenthesization for the matrix 
+chain multiplication problem with dimensions 
+⟨5, 10, 3, 12, 5, 50, 6⟩ using dynamic programming. 
+I'll explain each step and present the results in detail.
+
+### Problem Statement
+
+We have a sequence of matrices A1, A2, A3, A4, A5, A6 
+with dimensions:
+- A1: 5 × 10
+- A2: 10 × 3
+- A3: 3 × 12
+- A4: 12 × 5
+- A5: 5 × 50
+- A6: 50 × 6
+
+Our goal is to find the most efficient way to multiply 
+these matrices together, minimizing the total number of 
+scalar multiplications.
+
+### Solution Process
+
+1. **Initialization**
+   We start by creating two tables:
+   - m[i][j]: stores the minimum number of scalar multiplications needed to compute the product of matrices from Ai to Aj
+   - s[i][j]: stores the split point that achieves the minimum cost for the product of matrices from Ai to Aj
+
+   Initially, both tables are filled with zeros.
+
+2. **Filling the Tables**
+   We fill the tables for increasing chain lengths, from 2 to 6 (the number of matrices).
+
+   ![fig](https://ydcusercontenteast.blob.core.windows.net/user-content-youagent-output/e9f4a660-d57b-4d31-b20d-373af0335a4a.png)
+
+   Let's go through each step:
+
+   For length 2:
+   ```
+   m[0][1] = 150 (split at k=0)
+   m[1][2] = 360 (split at k=1)
+   m[2][3] = 180 (split at k=2)
+   m[3][4] = 3000 (split at k=3)
+   m[4][5] = 1500 (split at k=4)
+   ```
+
+   For length 3:
+   ```
+   m[0][2] = 330 (split at k=1)
+   m[1][3] = 330 (split at k=1)
+   m[2][4] = 930 (split at k=3)
+   m[3][5] = 1860 (split at k=3)
+   ```
+
+   For length 4:
+   ```
+   m[0][3] = 405 (split at k=1)
+   m[1][4] = 2430 (split at k=1)
+   m[2][5] = 1770 (split at k=3)
+   ```
+
+   For length 5:
+   ```
+   m[0][4] = 1655 (split at k=3)
+   m[1][5] = 1950 (split at k=1)
+   ```
+
+   For length 6:
+   ```
+   m[0][5] = 2010 (split at k=1)
+   ```
+
+3. **Final Results**
+
+   After completing the dynamic programming process, we have the following results:
+
+   a. Minimum number of scalar multiplications: 2010
+
+   b. Dynamic Programming Table (m):
+   ```
+   [[   0  150  330  405 1655 2010]
+    [   0    0  360  330 2430 1950]
+    [   0    0    0  180  930 1770]
+    [   0    0    0    0 3000 1860]
+    [   0    0    0    0    0 1500]
+    [   0    0    0    0    0    0]]
+   ```
+
+   c. Split Points Table (s):
+   ```
+   [[0 0 1 1 3 1]
+    [0 0 1 1 1 1]
+    [0 0 0 2 3 3]
+    [0 0 0 0 3 3]
+    [0 0 0 0 0 4]
+    [0 0 0 0 0 0]]
+   ```
+
+4. **Optimal Parenthesization**
+
+   To find the optimal parenthesization, we trace back through the split points table. Starting from s[0][5], we get:
+
+   ((A1A2)((A3A4)(A5A6)))
+
+   This means the optimal way to multiply these matrices is:
+   1. Multiply A1 and A2
+   2. Multiply A3 and A4
+   3. Multiply A5 and A6
+   4. Multiply the result of (A3A4) with (A5A6)
+   5. Finally, multiply (A1A2) with the result of step 4
+
+### Explanation of the Result
+
+The optimal parenthesization ((A1A2)((A3A4)(A5A6))) requires 2010 scalar multiplications, which is the minimum possible for this sequence of matrices. This solution takes advantage of the dimensions of the matrices to minimize the total number of operations.
+
+For example:
+- Multiplying A1 (5×10) and A2 (10×3) first results in a 5×3 matrix, which is relatively small and efficient for further multiplications.
+- Grouping A3 (3×12) with A4 (12×5) and A5 (5×50) with A6 (50×6) also creates intermediate results that are more efficient for subsequent multiplications.
+
+This solution demonstrates the power of dynamic programming in solving complex optimization problems by breaking them down into smaller subproblems and building up to the final solution.
+
+In conclusion, the dynamic programming approach has successfully found the optimal parenthesization for the given matrix chain, minimizing the total number of scalar multiplications to 2010. This solution provides an efficient way to multiply these six matrices together.

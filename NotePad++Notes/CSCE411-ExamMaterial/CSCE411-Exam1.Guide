@@ -1,0 +1,73 @@
+CSCE411 - Midterm1 Topics
+For a midterm exam in a Design and Analysis of Algorithms course, the topics typically focus on foundational concepts, techniques, and problem-solving strategies that students are expected to master by the midpoint of the semester. Below is a list of topics that would likely be covered, assuming a standard introductory-to-intermediate level course. These are organized to reflect a typical progression of material:
+
+1. **Algorithm Basics**  
+   - Definition of an algorithm and its properties (correctness, efficiency, finiteness)  
+   - Time and space complexity analysis  
+   - Asymptotic notation (Big-O, Omega, Theta) and their applications  
+   - Growth of functions and comparing algorithm efficiency  
+
+2. **Mathematical Foundations**  
+   - Recurrence relations and their solutions (e.g., substitution method, recursion tree, Master Theorem)  
+   - Summations and basic combinatorics for algorithm analysis  
+   - Logarithms and their role in algorithm performance  
+
+3. **Sorting and Searching Algorithms**  
+   - Comparison-based sorting: Bubble Sort, Insertion Sort, Selection Sort  
+   - Efficient sorting: Merge Sort, Quick Sort, Heap Sort  
+   - Search algorithms: Binary Search (iterative and recursive)  
+   - Lower bounds for comparison-based sorting  
+
+4. **Divide and Conquer**  
+   - Paradigm explanation and examples  
+   - Analysis of algorithms like Merge Sort and Quick Sort  
+   - Strassen’s matrix multiplication  
+   - Finding maximum and minimum elements efficiently  
+
+5. **Greedy Algorithms**  
+   - Greedy choice property and optimal substructure  
+   - Examples: Activity Selection, Fractional Knapsack, Huffman Coding  
+   - Minimum Spanning Tree algorithms (Kruskal’s and Prim’s)  
+   - Dijkstra’s shortest path algorithm  
+
+-Optional
+6. **Data Structures and Their Role in Algorithms**  
+   - Arrays, linked lists, stacks, and queues in algorithm design  
+   - Binary trees and binary search trees  
+   - Heaps (min-heap, max-heap) and priority queues  
+   - Hash tables and collision resolution  
+
+-Optional
+7. **Graph Algorithms**  
+   - Graph representations (adjacency list, adjacency matrix)  
+   - Breadth-First Search (BFS) and Depth-First Search (DFS)  
+   - Topological sorting  
+   - Connectivity and cycle detection  
+
+8. **Dynamic Programming**  
+   - Principles: overlapping sub problems and optimal substructure
+   - Examples: Fibonacci numbers, 0/1 Knapsack, Longest Common Subsequence  
+   - Top-down vs. bottom-up approaches  
+   - Memoization vs. tabulation  
+
+-Optional
+9. **Amortized Analysis**  
+   - Aggregate method, accounting method, potential method  
+   - Application to dynamic arrays or binary counters  
+
+10. **Algorithm Design Techniques Recap**  
+    - Brute force vs. optimization techniques  
+    - Trade-offs between time and space complexity  
+    - Problem-solving strategies (e.g., incremental, divide-and-conquer, greedy)  
+
+This list assumes the midterm covers material up to dynamic programming 
+or graph algorithms, which is common in many curricula. 
+Depending on your specific course, some topics 
+(e.g., amortized analysis or advanced graph algorithms) 
+might be reserved for later, so adjust based on your syllabus 
+or lecture progression. 
+
+For each topic, focus on understanding the algorithm’s logic, 
+its complexity (time and space), and how to apply it to problems—
+	midterms often test both theory and practical application 
+	through proofs or coding examples. 

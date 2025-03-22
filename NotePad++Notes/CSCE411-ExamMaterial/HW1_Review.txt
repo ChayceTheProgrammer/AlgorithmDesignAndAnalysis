@@ -1,0 +1,51 @@
+Topic (1): Asymptotic Analysis
+Key concepts:
+    Notation
+    - Big-O (&& Little-o) [Upper Bounds]
+        Def:
+
+    - Big-Ω [Lower Bounds]
+        Def:
+
+    - Big-Θ (&& little-ω) [Tight Bounds]
+        Def:
+
+    - Asymptotic Equality, ~
+        f(n) ~ g(n) means lim (n->∞) f(n)/g(n) = 1
+
+    - Logarithmic Asymptotic Behavior:
+        a. change of base formula
+        b. tightness of logarithms
+        c. growth of n^(log_b(n)) compared to others
+
+Exam Tip:
+    Prep by proving asymptotic relationships
+    using limits or bounding functions
+
+
+Topic (2) Sequences, Accumulation Points, and Limits
+Key Concepts:
+    1. Accumulation Points
+        Values that a sequence or its subsequences approach infinitely often
+    2. Upper Acc Point
+        Supremum of all accumulation points
+    3. Lower Acc Point
+        Infimum ...
+    a. Technique:
+        Break sequences into cases (even/odd n)
+            evaluate limits and see patterns
+
+Concept: Analyze sequences for oscillating behavior, convergence, or divergence
+
+Exam Tip: Practice identifying accumulation points for oscillating sequences,
+            especially those involving (-1)^n, floor[n / 2],
+            or fractions similar to (n / n+10)
+            ->Justify Upper/Lower Bounds
+
+Topic (3): Summations and their Growth Rates
+Key Concepts
+    1. Use bounding (upper/lower) to show big-Θ relationships
+    2. Recall the common Sum:
+
+    This allows us to justify Θ with O and Ω.
+

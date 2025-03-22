@@ -1,0 +1,126 @@
+HW5 Q5 Will writeup:
+Q:
+
+\begin{problem}[20 points]
+  Give an $O(n^2)$-time algorithm to find the longest monotonically
+  increasing subsequence of a sequence of n numbers.
+\end{problem}
+
+{\small \textbf{Why do we care?} You should learn how to apply the
+  algorithms from the lecture. This is a good opportunity to hone
+  your problem solving skills. Make sure that you solve it yourself
+  without any help!} 
+
+
+A:
+\begin{solution}
+\end{solution}
+
+Work:
+Certainly! I'll provide a comprehensive analysis of an O(n²) algorithm for finding the longest monotonically increasing subsequence (LIS). This algorithm uses dynamic programming to efficiently solve the problem.
+
+### Algorithm Development
+
+The algorithm we'll analyze is based on the dynamic programming approach. Here's the implementation in Python:
+
+```python
+def find_lis(arr):
+    if not arr:
+        return []
+    
+    n = len(arr)
+    # dp[i] stores the length of LIS ending at index i
+    dp = [1] * n
+    # prev[i] stores the previous index in the LIS ending at i
+    prev = [-1] * n
+    
+    # Find the lengths of LIS
+    for i in range(1, n):
+        for j in range(i):
+            if arr[i] > arr[j] and dp[j] + 1 > dp[i]:
+                dp[i] = dp[j] + 1
+                prev[i] = j
+    
+    # Find the index where the maximum length ends
+    max_length = max(dp)
+    end_index = dp.index(max_length)
+    
+    # Reconstruct the sequence
+    result = []
+    while end_index != -1:
+        result.append(arr[end_index])
+        end_index = prev[end_index]
+    
+    return result[::-1]  # Reverse to get the correct order
+```
+
+### Algorithm Analysis
+
+1. **Time Complexity: O(n²)**
+   - The algorithm uses two nested loops:
+     - The outer loop runs n-1 times (from 1 to n-1)
+     - The inner loop runs up to i times for each i
+   - This results in a total of (1 + 2 + 3 + ... + (n-1)) = n(n-1)/2 comparisons
+   - Therefore, the time complexity is O(n²)
+
+2. **Space Complexity: O(n)**
+   - The algorithm uses two additional arrays, each of size n:
+     - dp[]: stores the length of LIS ending at each index
+     - prev[]: stores the previous index in the LIS
+   - Thus, the space complexity is O(n)
+
+3. **Correctness**
+   - The algorithm correctly maintains the length of the LIS ending at each index
+   - It also keeps track of the previous element in the LIS, allowing for sequence reconstruction
+   - The final step reconstructs the actual subsequence by tracing back from the end
+
+4. **Test Cases Analysis**
+
+Let's analyze the algorithm's behavior on different types of inputs:
+
+```
+Test Case 1: [10, 22, 9, 33, 21, 50, 41, 60, 80]
+LIS: [10, 22, 33, 50, 60, 80]
+Length: 6
+Analysis: Handles general case with multiple increasing subsequences
+
+Test Case 2: [3, 10, 2, 1, 20]
+LIS: [3, 10, 20]
+Length: 3
+Analysis: Handles non-consecutive increasing elements
+
+Test Case 3: [1, 2, 3, 4, 5]
+LIS: [1, 2, 3, 4, 5]
+Length: 5
+Analysis: Handles already sorted array (best case)
+
+Test Case 4: [5, 4, 3, 2, 1]
+LIS: [5]
+Length: 1
+Analysis: Handles strictly decreasing array (worst case for LIS length)
+
+Test Case 5: [2, 2, 2, 2]
+LIS: [2]
+Length: 1
+Analysis: Handles array with all equal elements
+```
+
+5. **Algorithm Behavior**
+   - Best Case: When the array is already sorted in ascending order, the algorithm still takes O(n²) time but produces the entire array as the LIS.
+   - Worst Case: For time complexity, any input requires O(n²) comparisons. For LIS length, a strictly decreasing sequence results in an LIS of length 1.
+   - Average Case: The algorithm consistently takes O(n²) time but the length of the LIS varies based on the input sequence.
+
+6. **Advantages**
+   - Simple to implement and understand
+   - Works correctly for all input types
+   - Provides the actual subsequence, not just its length
+
+7. **Limitations**
+   - O(n²) time complexity may be too slow for very large inputs
+   - There exist more efficient algorithms (e.g., O(n log n) using patience sorting) for larger datasets
+
+### Conclusion
+
+The developed O(n²) algorithm for finding the longest monotonically increasing subsequence is a classic example of dynamic programming. It efficiently solves the problem for small to medium-sized inputs and handles all types of sequences correctly. The algorithm's quadratic time complexity makes it suitable for educational purposes and smaller datasets, but for larger datasets, more optimized algorithms might be preferred.
+
+This analysis demonstrates the algorithm's correctness, efficiency, and behavior across various input types, providing a comprehensive understanding of its performance characteristics and limitations.

@@ -1,0 +1,34 @@
+Topic(4) Asymptotic Analysis of Factorials and Logarithms
+Key Concepts
+    a. know proving f(n) exists in Θ(g(n))
+        by establishing O(g(n) [upper]
+            and Ω(g(n) [lower]
+    b. Stirling's approx/bounding techniques for factorials
+    c. basic growth patterns for logarithms such as
+        log_b(n!) and nlog(n)
+
+Topic(5) Decision Tree Method for Lower Bounds
+Key Concepts
+    a. use dtree to analyze 'worst-case' complexity
+        of Comparison Based Sorting Algorithms
+    b. number of leaves in a dtree must equal
+        the number of possible outcomes
+        AND height h >= ciel(log_2(# outcomes))
+    c. understand Adversary Arguments/Methods for lower bounds
+        (bounds in general too)
+        ->force an algorithm to make the max number of comparisons
+            in the worst case
+        ->adversary maintains ambiguity until all checks are made
+
+Topic(6) Efficient Algorithm Design and Constraints
+Key Concepts
+    a. design algo's that exploit structure
+        ->even/odd indices, sorted order
+        to minimize comparisons
+    b. maintain correctness, efficiency, with constraints
+
+Topic(6) Comparison Based Sorting Algorithms
+Key Concepts
+    a. CBSA only use <, =, > operators
+    b. prove optimality using adversary/dtree arguments
+    c. for sorted arrays, leverage (use) order to minimize comparisons

@@ -1,0 +1,33 @@
+\begin{solution}
+We will prove by induction that the solution to the recurrence
+$$ P(n) = 
+\begin{cases}
+  1 & \text{if $n=1$,} \\
+  \sum_{k=1}^{n-1} P(k)P(n-k) & \text{if $n\ge 2$.}
+\end{cases}
+$$
+is $\Omega(2^n)$. This means we need to show that there exist positive constants $c$ and $n_0$ such that $P(n) \geq c \cdot 2^n$ for all $n \geq n_0$.
+
+\textbf{Base Case:} For $n = 1$, we have $P(1) = 1 = 2^0 = 2^1 / 2$. Let $c = 1/2$, then $P(1) \geq c \cdot 2^1$.
+
+\textbf{Inductive Hypothesis:} Assume that for some $k \geq 1$ and for all $1 \leq i \leq k$, we have $P(i) \geq c \cdot 2^i$, where $c = 1/2$.
+
+\textbf{Inductive Step:} We need to prove that $P(k+1) \geq c \cdot 2^{k+1}$.
+
+For $k+1 \geq 2$, we have:
+
+\begin{align*}
+P(k+1) &= \sum_{i=1}^{k} P(i)P(k+1-i) \\
+&\geq \sum_{i=1}^{k} (c \cdot 2^i)(c \cdot 2^{k+1-i}) \quad \text{(by inductive hypothesis)} \\
+&= c^2 \cdot 2^{k+1} \sum_{i=1}^{k} 1 \\
+&= c^2 \cdot 2^{k+1} \cdot k \\
+&= \frac{1}{4} \cdot 2^{k+1} \cdot k \quad \text{(since $c = 1/2$)} \\
+&\geq \frac{1}{2} \cdot 2^{k+1} = c \cdot 2^{k+1} \quad \text{(for $k \geq 2$)}
+\end{align*}
+
+Thus, we have shown that $P(k+1) \geq c \cdot 2^{k+1}$ for $k \geq 2$, which means the statement holds for all $n \geq 3$.
+
+\textbf{Conclusion:} By the principle of mathematical induction, we have proved that $P(n) \geq c \cdot 2^n$ for all $n \geq 1$, where $c = 1/2$ and $n_0 = 1$. Therefore, $P(n) = \Omega(2^n)$.
+
+This lower bound demonstrates that the number of parenthesizations for a chain of $n$ matrices grows at least exponentially with $n$. Consequently, a brute-force approach to finding the optimal parenthesization would be highly inefficient, as it would need to consider $\Omega(2^n)$ different possibilities, leading to exponential time complexity.
+\end{solution}

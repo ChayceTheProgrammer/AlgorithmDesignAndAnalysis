@@ -1,0 +1,148 @@
+HW5q4 4 brief write up:
+Based on the analysis of the MATRIX-CHAIN-ORDER algorithm, I can provide a comprehensive breakdown of its structure and time complexity. Let's examine the algorithm in detail:
+
+### Algorithm Structure
+
+The MATRIX-CHAIN-ORDER algorithm uses dynamic programming to find the optimal way to parenthesize a chain of matrices for multiplication. It employs a nested loop structure with three main loops:
+
+1. Outer loop (l): Iterates over the chain length, from 2 to n.
+2. Middle loop (i): Iterates over the starting positions of subchains.
+3. Inner loop (k): Iterates over possible splitting points within each subchain.
+
+### Loop Iteration Analysis
+
+For the example provided with 6 matrices (n = 6), the iteration counts were:
+
+```
+Outer loop (l) iterations: 5
+Middle loop (i) iterations: 15
+Inner loop (k) iterations: 35
+```
+
+These numbers give us insight into how the algorithm scales with input size.
+
+### Time Complexity Breakdown
+
+To understand the time complexity, let's break down each loop:
+
+1. Outer loop (l):
+   - Runs from 2 to n
+   - Number of iterations: n - 1
+
+2. Middle loop (i):
+   - For each l, runs n - l + 1 times
+   - Total iterations across all l: Σ(n - l + 1) for l from 2 to n
+
+3. Inner loop (k):
+   - For each combination of l and i, runs j - i times, where j = i + l - 1
+   - The number of iterations varies but is bounded by n for each (l, i) pair
+
+### Overall Time Complexity
+
+The nested structure of these loops leads to a cubic time complexity:
+
+1. The outer loop runs n - 1 times
+2. For each iteration of the outer loop, the middle loop runs O(n) times
+3. For each iteration of the middle loop, the inner loop runs O(n) times
+
+This results in a total of O(n * n * n) = O(n³) operations.
+
+### Formal Justification
+
+We can express the total number of operations T(n) as:
+
+T(n) = Σ(l=2 to n) Σ(i=1 to n-l+1) Σ(k=i to i+l-2) 1
+
+This triple summation can be shown to be bounded by O(n³) using mathematical analysis.
+
+### Practical Implications
+
+The O(n³) time complexity means that as the number of matrices in the chain (n) increases:
+- The running time grows cubically
+- Doubling the input size results in approximately 8 times more operations
+
+This makes the algorithm efficient for small to medium-sized inputs but potentially problematic for very large matrix chains.
+
+### Space Complexity
+
+While not explicitly asked, it's worth noting that the algorithm also has O(n²) space complexity due to the two-dimensional m and s tables it maintains.
+
+### Conclusion
+
+The MATRIX-CHAIN-ORDER algorithm has a time complexity of O(n³), where n is the number of matrices in the chain. This is derived from its three nested loops, each contributing a factor of n to the overall complexity. The algorithm efficiently solves the matrix chain multiplication problem for moderate sizes but may become computationally expensive for very large inputs.
+
+This analysis demonstrates the power of dynamic programming in solving complex optimization problems, while also highlighting the trade-offs between computational efficiency and problem size.
+
+
+LATEX_Solution:
+\begin{solution}
+To prove that 
+\[
+\sum_{i=1}^n \sum_{j=i}^n R(i,j) = \frac{n^3 - n}{3},
+\]
+we'll follow a step-by-step approach based on the structure of the MATRIX-CHAIN-ORDER algorithm.
+
+\textbf{Step 1: Understanding $R(i,j)$}
+
+$R(i,j)$ represents the number of times the table entry $m[i,j]$ is referenced while computing other entries in the MATRIX-CHAIN-ORDER algorithm. From the algorithm's structure, we know that $m[i,j]$ is referenced when computing $m[k,j]$ for all $k < i$.
+
+\textbf{Step 2: Expressing $R(i,j)$}
+
+Based on this understanding:
+\begin{itemize}
+    \item $R(i,j) = i - 1$ for $i < j$,
+    \item $R(i,i) = 0$ for all $i$.
+\end{itemize}
+
+\textbf{Step 3: Formulating the double summation}
+
+We can express the double summation as:
+\[
+\sum_{i=1}^n \sum_{j=i}^n R(i,j) = \sum_{i=1}^n \sum_{j=i+1}^n (i-1) + \sum_{i=1}^n R(i,i).
+\]
+The second sum $\sum_{i=1}^n R(i,i) = 0$ because $R(i,i) = 0$ for all $i$.
+
+\textbf{Step 4: Simplifying the summation}
+
+We can rewrite the first sum as:
+\[
+\sum_{i=1}^n \sum_{j=i+1}^n (i-1) = \sum_{i=1}^{n-1} (n-i)(i-1).
+\]
+This is because for each $i$, the inner sum runs $(n-i)$ times.
+
+\textbf{Step 5: Expanding the summation}
+
+\begin{align*}
+\sum_{i=1}^{n-1} (n-i)(i-1) &= \sum_{i=1}^{n-1} (ni - i^2 - n + i) \\
+&= n\sum_{i=1}^{n-1} i - \sum_{i=1}^{n-1} i^2 - n(n-1) + \sum_{i=1}^{n-1} i.
+\end{align*}
+
+\textbf{Step 6: Using known summation formulas}
+
+We can use the well-known formulas:
+\[
+\sum_{i=1}^{n-1} i = \frac{n(n-1)}{2}, \quad \sum_{i=1}^{n-1} i^2 = \frac{(n-1)n(2n-1)}{6}.
+\]
+
+\textbf{Step 7: Substituting and simplifying}
+
+Substituting these formulas and simplifying:
+\begin{align*}
+&n\frac{n(n-1)}{2} - \frac{(n-1)n(2n-1)}{6} - n(n-1) + \frac{n(n-1)}{2} \\
+&= \frac{3n^2(n-1) - (n-1)n(2n-1) - 6n(n-1) + 3n(n-1)}{6} \\
+&= \frac{(n-1)(3n^2 - n(2n-1) - 3n)}{6} \\
+&= \frac{(n-1)(n^2 - 2n)}{6} \\
+&= \frac{n^3 - 3n^2 + 2n}{6} \\
+&= \frac{n(n^2 - 3n + 2)}{6} \\
+&= \frac{n(n-1)(n-2)}{6} \\
+&= \frac{n^3 - n}{3}.
+\end{align*}
+
+\textbf{Conclusion:}
+
+Thus, we have proven that 
+\[
+\sum_{i=1}^n \sum_{j=i}^n R(i,j) = \frac{n^3 - n}{3}.
+\]
+This result aligns with the cubic time complexity $O(n^3)$ of the MATRIX-CHAIN-ORDER algorithm, as demonstrated in the algorithm analysis. The total number of references to table entries grows as a cubic function of $n$, with the $-n$ term becoming negligible for large $n$. This confirms the algorithm's $O(n^3)$ complexity and provides insight into its performance characteristics, particularly its efficiency for small to medium-sized inputs and potential limitations for very large matrix chains.
+\end{solution}
