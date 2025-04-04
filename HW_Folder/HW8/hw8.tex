@@ -1,0 +1,125 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm,latexsym,paralist,color,url}
+\usepackage[margin=1.5in]{geometry}
+
+\theoremstyle{definition}
+\newtheorem{problem}{Problem}
+\newtheorem*{solution}{Solution}
+\newtheorem*{resources}{Resources}
+
+\newcommand{\name}[1]{\noindent\textbf{Name: #1}}
+\newcommand{\honor}{\noindent On my honor, as an Aggie, I have neither
+  given nor received any unauthorized aid on any portion of the
+  academic work included in this assignment. Furthermore, I have
+  disclosed all resources (people, books, web sites, etc.) that have
+  been used to prepare this homework. \\[1ex]
+ \textbf{Signature:} \underline{\hspace*{5cm}} }
+
+\newcommand{\checklist}{\noindent\textbf{Checklist:}
+\begin{compactitem}[$\Box$] 
+\item Did you add your name? 
+\item Did you disclose all resources that you have used? \\
+(This includes all people, books, websites, etc. that you have consulted)
+\item Did you sign that you followed the Aggie honor code? 
+\item Did you solve all problems? 
+\item Did you submit the pdf file
+  of your homework?
+\end{compactitem}
+}
+
+\newcommand{\problemset}[1]{\begin{center}\textbf{Problem Set
+      #1}\end{center}}
+\newcommand{\duedate}[2]{\begin{quote}\textbf{Due dates:} Electronic
+    submission of this homework is due on \textbf{#1} on canvas.\end{quote} }
+
+\newcommand{\N}{\mathbf{N}}
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Z}{\mathbf{Z}}
+
+\newcommand{\bl}[1]{\color{blue}#1\color{black}}
+
+\begin{document}
+\problemset{8}
+\duedate{Friday 4/4/2025 before 11:59pm}{4/4/2025}
+\name{ (put your name here)}
+\begin{resources} (All people, books, articles, web pages, etc. that
+  have been consulted when producing your answers to this homework)
+\end{resources}
+\honor
+\newpage
+
+This homework needs to be typeset in LaTeX to receive any credit. All
+answers need to be formulated in your own words. 
+
+You need to gain some familiarity with conditional probabilities, as
+they figure prominently in many arguments about randomized
+algorithms. The next two exercises give some opportunity to explore
+conditional probabilities. 
+
+\begin{problem}[20 points] 
+Let $B_1, B_2, \ldots, B_t$ denote a partition of the sample space
+$\Omega$. 
+\begin{compactenum}[(a)]
+\item Prove that $\Pr[A] = \sum_{k=1}^t \Pr[A\mid B_k] \Pr[B_k]$. 
+\item Deduce that $\Pr[A] \le \max_{1\le k\le t} \Pr[A \mid B_k].$
+\end{compactenum}
+\end{problem}
+\begin{solution}
+\end{solution}
+
+
+\begin{problem}[20 points] 
+Consider an experiment, where you toss two fair coins. 
+Give examples of events where (a) $\Pr[A_1 \mid B_1] < \Pr[A_1]$, 
+(b) $\Pr[A_2 \mid B_2] =  \Pr[A_2]$, and (c) $\Pr[A_3 \mid B_3] > \Pr[A_3]$. Make
+sure that your proofs are complete and self-contained.
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[20 points] 
+  Research the Schwartz-Zippel Randomized Polynomial Identity Test.
+  (a) Explain the method. (b) Explain why randomized algorithms are
+  better suited for this problem than deterministic algorithms. \par
+
+  Hint: To get started, you can read: \\ \small
+  \url{https://web.stanford.edu/class/archive/cs/cs265/cs265.1212/Lectures/Lecture1/l1.pdf}
+  \end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[20 points] 
+  There may be several different min-cut sets in a graph. Using the
+  analysis of the randomized min-cut algorithm, argue that there can
+  be at most $n(n - 1)/2$ distinct min-cut sets.
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[20 points] 
+A popular choice for pivot selection in Quicksort is the median of
+three randomly selected elements. Approximate the probability of
+obtaining at worst an $a$-to-$(1-a)$ split in the partition (assuming
+that $a$ is a real number in the range $0<a<1/2$). 
+
+\noindent{}[Hint: Suppose that the median-of-three is the $m$-th smallest element
+of the array. Then it gives at worst an $a$-to-$(1-a)$ split if and
+only if $an \le m\le (1-a)n$. Now count how
+many sets of three elements can lead to the the pivot
+(= median-of-three) being the $m$-th smallest element. ]
+
+\end{problem}
+\begin{solution}
+\end{solution}
+
+
+
+
+
+
+
+
+
+\goodbreak
+\checklist
+\end{document}
