@@ -1,0 +1,74 @@
+SUBSET SUM Problem Analysis
+==========================
+Systematically checking all subsets of [2, 3, 5, 7, 8] to find a subset that sums to 19:
+  Subset [8]: sum = 8
+  Subset [7]: sum = 7
+  Subset [7, 8]: sum = 15
+  Subset [5]: sum = 5
+  Subset [5, 8]: sum = 13
+  Subset [5, 7]: sum = 12
+  Subset [5, 7, 8]: sum = 20
+  Subset [3]: sum = 3
+  Subset [3, 8]: sum = 11
+  Subset [3, 7]: sum = 10
+  Subset [3, 7, 8]: sum = 18
+  Subset [3, 5]: sum = 8
+  Subset [3, 5, 8]: sum = 16
+  Subset [3, 5, 7]: sum = 15
+  Subset [3, 5, 7, 8]: sum = 23
+  Subset [2]: sum = 2
+  Subset [2, 8]: sum = 10
+  Subset [2, 7]: sum = 9
+  Subset [2, 7, 8]: sum = 17
+  Subset [2, 5]: sum = 7
+  Subset [2, 5, 8]: sum = 15
+  Subset [2, 5, 7]: sum = 14
+  Subset [2, 5, 7, 8]: sum = 22
+  Subset [2, 3]: sum = 5
+  Subset [2, 3, 8]: sum = 13
+  Subset [2, 3, 7]: sum = 12
+  Subset [2, 3, 7, 8]: sum = 20
+  Subset [2, 3, 5]: sum = 10
+  Subset [2, 3, 5, 8]: sum = 18
+  Subset [2, 3, 5, 7]: sum = 17
+  Subset [2, 3, 5, 7, 8]: sum = 25
+
+No subset sums to 19.
+
+Part (b): Why brute force is not feasible for larger sets:
+  For n = 10: 2^10 = 1,024 subsets to check
+  For n = 20: 2^20 = 1,048,576 subsets to check
+  For n = 30: 2^30 = 1,073,741,824 subsets to check
+  For n = 50: 2^50 = 1,125,899,906,842,624 subsets to check
+  For n = 100: 2^100 = 1,267,650,600,228,229,401,496,703,205,376 subsets to check
+
+The exponential growth makes it impractical to check all subsets for large n.
+
+Applying dynamic programming to our problem:
+
+Dynamic Programming Table for SUBSET SUM:
+  (rows = items considered, columns = target sums)
+     |  0 |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 |
+----------------------------------------------------------------------------------------------------------
+ ∅   | T | F | F | F | F | F | F | F | F | F | F | F | F | F | F | F | F | F | F | F |
+ 2   | T | F | T | F | F | F | F | F | F | F | F | F | F | F | F | F | F | F | F | F |
+ 3   | T | F | T | T | F | T | F | F | F | F | F | F | F | F | F | F | F | F | F | F |
+ 5   | T | F | T | T | F | T | F | T | T | F | T | F | F | F | F | F | F | F | F | F |
+ 7   | T | F | T | T | F | T | F | T | T | T | T | F | T | F | T | T | F | T | F | F |
+ 8   | T | F | T | T | F | T | F | T | T | T | T | T | T | T | T | T | T | T | T | F |
+
+DP Solution exists: False
+
+Part (c): Why dynamic programming is not polynomial time:
+  1. The dynamic programming solution has time complexity O(nB) where:
+     - n is the number of elements in the set
+     - B is the target sum
+  2. Input size analysis:
+     - To represent n numbers, each up to B, we need O(n log B) bits
+     - The numbers are encoded in binary (log B bits each)
+  3. Therefore:
+     - O(nB) = O(n × 2^(log B))
+     - This is exponential in terms of the input size
+     - Making it a pseudo-polynomial time algorithm, not truly polynomial
+
+Process finished with exit code 0

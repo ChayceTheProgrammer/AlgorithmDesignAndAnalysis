@@ -1,0 +1,39 @@
+Markov Chains and Page Rank Algorithms
+
+Concept:	[Stochastic Process]
+Collection of random variables indexed by time or space,
+	representing systems that evolve over time in a 
+	probabalistic manner
+It provides a mathematical framework for modeling 
+	phenomena that are inherently uncertain,
+		Ex: Stock Prices, Weather patterns, or queue lengths 
+These Processes can be classified into various types
+	such as
+	1. Discrete-Time process
+	2. Continous-Time process
+	3. Stationary
+	4. Non-stationary
+	
+Concept:	[Markov Chains]
+Specific type of stochastic process with the 'Markov Property'
+	Which states that the future statre of the process depends
+		only on the present state and not on the sequence of events
+		that proceeded it.
+	This is referred as a 'memory-less' state which simplifies
+		analysis of the process, as it allows predictions
+		based on the current state.
+
+In general, Stochatic process - future depends on entire history 
+			Markov Chains - rely on the present (and immediately prior state)
+
+Markov chains are widely used in applications such as:
+Predictive text input: For example, predicting the next word in a 
+	sentence based on the current word.
+
+Queueing theory: Analyzing customer service systems where the next 
+	arrival or service time depends only on the current state of the 
+	system.
+	
+Game theory: Modeling strategies in games where players' 
+	decisions depend on the current state of play.
+	

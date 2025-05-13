@@ -1,0 +1,446 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm,latexsym,paralist,url,tikz}
+
+\theoremstyle{definition}
+\newtheorem{problem}{Problem}
+\newtheorem*{solution}{Solution}
+\newtheorem*{resources}{Resources}
+
+\newcommand{\name}[1]{\noindent\textbf{Name:} {#1}}
+\newcommand{\honor}{\noindent On my honor, as an Aggie, I have neither
+  given nor received any unauthorized aid on any portion of the
+  academic work included in this assignment. Furthermore, I have
+  disclosed all resources (people, books, web sites, etc.) that have
+  been used to prepare this homework. \\[1ex]
+ \textbf{Signature: Chayce Leonard} \underline{\hspace*{5cm}} }
+ 
+\newcommand{\checklist}{\noindent\textbf{Checklist:}
+\begin{compactitem}[$\Box$] 
+\item Did you add your name? 
+\item Did you disclose all resources that you have used? \\
+(This includes all people, books, websites, etc. that you have consulted)
+\item Did you sign that you followed the Aggie honor code? 
+\item Did you solve all problems? 
+\item Did you submit the pdf file resulting from your latex file 
+  of your homework?
+\end{compactitem}
+}
+
+\newcommand{\problemset}[1]{\begin{center}\textbf{Problem Set #1}\end{center}}
+\newcommand{\duedate}[1]{\begin{quote}\textbf{Due date:} Electronic
+    submission of this homework is due on \textbf{#1} on canvas.\end{quote}}
+
+\newcommand{\N}{\mathbf{N}}
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Z}{\mathbf{Z}}
+
+
+\begin{document}
+\problemset{9}
+\duedate{4/17/2025}
+\name{ Chayce Leonard}
+\begin{resources} (All people, books, articles, web pages, etc. that
+  have been consulted when producing your answers to this homework)
+\begin{enumerate}
+    \item Intro. to Algo. class textbook (Chapter 34)
+    \item Dartmouth - Lecture 6 Material (Given) 
+    \item https://en.wikipedia.org/wiki/Pseudo-polynomial-time
+    \item https://en.wikipedia.org/wiki/Dynamic-programming
+    \item https://en.wikipedia.org/wiki/Knapsack-problem
+    \item https://en.wikipedia.org/wiki/NP-hardness
+    
+\end{enumerate}
+  
+\end{resources}
+\honor
+
+\newpage
+
+Read the chapter on NP-completeness in our textbook.  
+
+\begin{problem} (30 points) 
+Let DSAT denote the problem to decide whether a Boolean formula has
+at least two satisfying assignments. Show that 
+\begin{enumerate}[(a)]
+\item DSAT is in NP
+\item 3SAT $\le_p$ DSAT
+\end{enumerate}
+Conclude that DSAT is NP complete. [Hint: Introduce a new variable] 
+\end{problem}
+\begin{solution} 
+\textbf{(a) Showing that DSAT $\in$ NP:}
+
+To show that DSAT belongs to NP, we need to demonstrate the existence of a polynomial-time verifier $V$ and a polynomial function $p$ such that for any Boolean formula $\phi$: 
+$$\phi \in \text{DSAT} \iff \exists y(|y| \leq p(|\phi|) \wedge V(\phi,y) = \text{True})$$
+
+For DSAT, a natural certificate would be a pair of distinct satisfying assignments $y = (A_1, A_2)$ where $A_1, A_2$ assign either True or False to each of the $n$ variables. The verification procedure operates as follows:
+
+\begin{enumerate} 
+\item Verify that $A_1 \neq A_2$, i.e., $\exists i \in \{1,2,\ldots,n\}$ such that $A_1(x_i) \neq A_2(x_i)$. This can be accomplished in $O(n)$ time.
+
+\item Evaluate $\phi(A_1)$ to verify that $A_1$ satisfies $\phi$ (returns True). This evaluation can be performed in $O(|\phi|)$ time, where $|\phi|$ represents the size of the formula.
+
+\item Evaluate $\phi(A_2)$ to verify that $A_2$ satisfies $\phi$ (returns True), which also requires $O(|\phi|)$ time.
+\end{enumerate}
+
+The total verification process runs in $O(n + 2|\phi|) = O(n + |\phi|)$ time, which is polynomial in the input size. Furthermore, the certificate size $2n$ is clearly polynomial in the input size. Therefore, $\text{DSAT} \in \text{NP}$.
+
+\textbf{(b) Showing that 3SAT $\leq_p$ DSAT:}
+
+We construct a polynomial-time reduction from 3SAT to DSAT. Given an instance $\phi$ of 3SAT with variables $X = \{x_1, x_2, \ldots, x_n\}$, we need to construct an instance $\psi$ of DSAT such that:
+$$\phi \text{ is satisfiable} \iff \psi \text{ has at least two satisfying assignments}$$
+
+\textbf{Construction:}
+\begin{enumerate} 
+\item Introduce a new variable $x_0 \notin X$.
+\item Define $\psi = \phi \wedge (x_0 \vee \neg x_0)$.
+\end{enumerate}
+
+This construction is clearly polynomial-time, requiring only $O(|\phi|)$ operations. The key insight is that $(x_0 \vee \neg x_0)$ is a tautology (always evaluates to True), so $\psi$ is logically equivalent to $\phi$ but with the additional variable $x_0$.
+
+\textbf{Correctness Proof:}
+
+\underline{Forward Direction:} Suppose $\phi$ is satisfiable. Then there exists an assignment $A$ that makes $\phi$ evaluate to True. We can extend $A$ to create two distinct assignments for $\psi$:
+\begin{itemize}
+\item $A_1$ extends $A$ by setting $A_1(x_0) = \text{False}$
+\item $A_2$ extends $A$ by setting $A_2(x_0) = \text{True}$
+\end{itemize}
+
+Both $A_1$ and $A_2$ satisfy $\psi$ because:
+\begin{itemize}
+\item They both make $\phi$ evaluate to True since they extend $A$, which satisfies $\phi$.
+\item They both make $(x_0 \vee \neg x_0)$ evaluate to True since this is a tautology.
+\end{itemize}
+
+Thus, $\psi$ has at least two satisfying assignments when $\phi$ is satisfiable.
+
+\underline{Reverse Direction:} Suppose $\psi$ has at least two satisfying assignments, $B_1$ and $B_2$ where $B_1 \neq B_2$. We consider two cases:
+
+Case 1: If $B_1(x_0) \neq B_2(x_0)$, let's denote the restrictions of $B_1$ and $B_2$ to variables in $X$ as $B_1|_X$ and $B_2|_X$. If $B_1|_X = B_2|_X = B$, then $B$ satisfies $\phi$ (makes it evaluate to True) since $B_1$ and $B_2$ satisfy $\psi = \phi \wedge (x_0 \vee \neg x_0)$. Therefore, $\phi$ is satisfiable.
+
+Case 2: If $B_1(x_0) = B_2(x_0)$, then necessarily $B_1|_X \neq B_2|_X$ (otherwise $B_1 = B_2$, contradicting our assumption). Since both $B_1$ and $B_2$ satisfy $\psi$, they must both make $\phi$ evaluate to True. Therefore, $B_1|_X$ and $B_2|_X$ are two distinct satisfying assignments for $\phi$, which means $\phi$ is satisfiable.
+
+In either case, we conclude that $\phi$ is satisfiable when $\psi$ has at least two satisfying assignments.
+
+\textbf{Conclusion:}
+We have shown that:
+\begin{enumerate}
+\item DSAT $\in$ NP
+\item 3SAT $\leq_p$ DSAT via a polynomial-time reduction
+\end{enumerate}
+\end{solution}
+
+
+
+\begin{problem} (20 points)
+Theorem 34.11 in our textbook shows that CLIQUE is NP-complete using
+the reduction 3SAT $\le_p$ CLIQUE. (a) Describe the graph corresponding to
+the 3SAT instance 
+$$ (x_1 \vee \neg x_2 \vee \neg x_3) \wedge (\neg x_1 \vee \neg x_2
+\vee x_3) \wedge (\neg x_1 \vee x_2 \vee \neg x_3).
+$$
+in this reduction. (b) Find a satisfying assignment and the corresponding
+clique in the graph. [Hint: The package tikz can be helpful in drawing
+beautiful graphs in LaTeX.] 
+\end{problem}
+
+\begin{solution}
+\textbf{(a) Description of the Graph for the Given 3SAT Instance}
+
+For the given 3SAT instance:
+$$ (x_1 \vee \neg x_2 \vee \neg x_3) \wedge (\neg x_1 \vee \neg x_2 \vee x_3) \wedge (\neg x_1 \vee x_2 \vee \neg x_3) $$
+
+\textbf{(a) Description of the Graph for the Given 3SAT Instance}
+
+For the given 3SAT instance:
+$$ (x_1 \vee \neg x_2 \vee \neg x_3) \wedge (\neg x_1 \vee \neg x_2 \vee x_3) \wedge (\neg x_1 \vee x_2 \vee \neg x_3) $$
+
+
+The graph consists of 9 vertices, each representing a literal from the clauses of the 3SAT formula. There are three vertices for each clause: \\
+- Clause 1: $x_1$, $\neg x_2$, $\neg x_3$ \\
+- Clause 2: $\neg x_1$, $\neg x_2$, $x_3$ \\
+- Clause 3: $\neg x_1$, $x_2$, $\neg x_3$ \\
+
+Edges connect vertices from different clauses if the literals they represent do not contradict each other. For example, $x_1$ from Clause 1 connects to $\neg x_2$ from Clause 2, while it does not connect to $\neg x_1$ from Clause 2, as they are contradictory.
+
+The highlighted 3-clique in the graph corresponds to a satisfying assignment of the 3SAT formula, where $x_1 = \text{false}$, $x_2 = \text{false}$, and $x_3 = \text{false}$. This clique consists of: \\
+- $\neg x_2$ from Clause 1 \\
+- $\neg x_1$ from Clause 2 \\
+- $x_2$ from Clause 3       \\
+
+This representation effectively illustrates the relationship between the clauses of the 3SAT instance and the corresponding clique in the CLIQUE problem. \\
+
+Below is the graph constructed according to the reduction: \\
+
+
+\begin{tikzpicture}[
+    scale=1.8,
+    vertex/.style={circle, draw, fill=white, minimum size=8mm},
+    clause1/.style={vertex, fill=red!20},
+    clause2/.style={vertex, fill=blue!20},
+    clause3/.style={vertex, fill=green!20}
+]
+
+% Define vertex positions by clause - with more spacing
+% Clause 1
+\node[clause1] (x1) at (0,4) {$x_1$};
+\node[clause1] (nx2-1) at (2,4) {$\neg x_2$};
+\node[clause1] (nx3-1) at (4,4) {$\neg x_3$};
+
+% Clause 2
+\node[clause2] (nx1-2) at (0,2) {$\neg x_1$};
+\node[clause2] (nx2-2) at (2,2) {$\neg x_2$};
+\node[clause2] (x3) at (4,2) {$x_3$};
+
+% Clause 3
+\node[clause3] (nx1-3) at (0,0) {$\neg x_1$};
+\node[clause3] (x2) at (2,0) {$x_2$};
+\node[clause3] (nx3-3) at (4,0) {$\neg x_3$};
+
+% Draw edges between compatible literals from different clauses
+% Edges from Clause 1 to Clause 2
+\draw (x1) -- (nx2-2);
+\draw (x1) -- (x3);
+\draw (nx2-1) -- (nx1-2);
+\draw (nx2-1) -- (x3);
+\draw (nx3-1) -- (nx1-2);
+\draw (nx3-1) -- (nx2-2);
+
+% Edges from Clause 1 to Clause 3
+\draw (x1) -- (x2);
+\draw (x1) -- (nx3-3);
+\draw (nx2-1) -- (nx1-3);
+\draw (nx2-1) -- (nx3-3);
+\draw (nx3-1) -- (nx1-3);
+\draw (nx3-1) -- (x2);
+
+% Edges from Clause 2 to Clause 3
+\draw (nx1-2) -- (x2);
+\draw (nx1-2) -- (nx3-3);
+\draw (nx2-2) -- (nx1-3);
+\draw (nx2-2) -- (nx3-3);
+\draw (x3) -- (nx1-3);
+\draw (x3) -- (x2);
+
+% Highlight the clique corresponding to the satisfying assignment
+\draw[ultra thick, orange] (nx2-1) -- (nx1-2) -- (nx1-3) -- cycle;
+
+% Labels - positioned better to avoid overlap
+\node[red!60] at (2,5) {Clause 1: $(x_1 \vee \neg x_2 \vee \neg x_3)$};
+\node[blue!60] at (6,2) {Clause 2: $(\neg x_1 \vee \neg x_2 \vee x_3)$};
+\node[green!60] at (2,-1) {Clause 3: $(\neg x_1 \vee x_2 \vee \neg x_3)$};
+
+% Position the highlight explanation to avoid overlap
+\node[orange, align=center] at (6,4) {Highlighted 3-clique\\corresponds to satisfying assignment: 
+\\ $x_1=$ false, $x_2=$ false, $x_3=$ false};
+
+\end{tikzpicture}
+
+\textbf{(b) Finding a Satisfying Assignment and the Corresponding Clique}
+
+In the 3SAT to CLIQUE reduction, a formula with $k$ clauses is satisfiable if and only if the corresponding graph has a clique of size $k$. In our case, $k = 3$.
+
+\textbf{Satisfying Assignment:}
+A satisfying assignment for this formula is $x_1 = \text{false}$, $x_2 = \text{false}$, $x_3 = \text{false}$.
+
+Verification: \\
+1. Clause 1: $(x_1 \vee \neg x_2 \vee \neg x_3) = (\text{false} \vee \text{true} \vee \text{true}) = \text{true}$ \\
+2. Clause 2: $(\neg x_1 \vee \neg x_2 \vee x_3) = (\text{true} \vee \text{true} \vee \text{false}) = \text{true}$ \\
+3. Clause 3: $(\neg x_1 \vee x_2 \vee \neg x_3) = (\text{true} \vee \text{false} \vee \text{true}) = \text{true}$ \\
+
+\textbf{Corresponding Clique:}
+The corresponding clique in our graph (highlighted in orange) consists of: \\
+1. Literal $\neg x_2$ from Clause 1 \\
+2. Literal $\neg x_1$ from Clause 2 \\
+3. Literal $\neg x_1$ from Clause 3 \\
+
+These three vertices form a 3-clique because: \\
+1. The literals $\neg x_2$ (Clause 1) and $\neg x_1$ (Clause 2) don't contradict \\
+2. The literals $\neg x_2$ (Clause 1) and $\neg x_1$ (Clause 3) don't contradict \\
+3. The literals $\neg x_1$ (Clause 2) and $\neg x_1$ (Clause 3) don't contradict (they're the same literal) 
+\end{solution}
+
+\begin{problem} (30 points) 
+The SUBSET SUM problem asks to decide whether a finite set S of
+positive integers has a subset $T$ such that the elements of $T$ sum
+to a positive integer $t$. (a) Is $(S,t)$ a yes-instance when the set $S$
+is given by 
+$$ S = \{ 2,3,5,7,8\} $$
+and $t= 19$? Prove your result. (b) Why is a brute force algorithm not
+feasible for larger sets $S$ (c) Explain in your own words why the 
+dynamic programming solution to SUBSET SUM given in 
+\begin{center}
+\url{https://www.cs.dartmouth.edu/~deepc/Courses/S19/lecs/lec6.pdf}
+\end{center}
+is not a polynomial time algorithm. 
+\end{problem}
+
+\begin{solution}
+\textbf{(a)} 
+\\
+To determine if $(S,t)$ with \( S = \{2,3,5,7,8\} \) and \( t = 19 \) is a yes-instance, we need to check if there exists a subset of \( S \) that sums to 19.
+
+\textbf{Proof:}
+- We will examine all possible subsets of \( S \) to see if any of them sum to 19.
+
+1. \textbf{Single elements:} \\
+   - \( \{2\}, \{3\}, \{5\}, \{7\}, \{8\} \) \\
+   - None sum to 19. \\
+
+2. \textbf{Pairs:} \\
+   - \( \{2,3\} = 5 \)  \\
+   - \( \{2,5\} = 7 \)  \\ 
+   - \( \{2,7\} = 9 \)  \\
+   - \( \{2,8\} = 10 \) \\
+   - \( \{3,5\} = 8 \)  \\
+   - \( \{3,7\} = 10 \) \\
+   - \( \{3,8\} = 11 \) \\
+   - \( \{5,7\} = 12 \) \\
+   - \( \{5,8\} = 13 \) \\
+   - \( \{7,8\} = 15 \) \\
+   - None sum to 19.    \\
+
+3. \textbf{Triples:}    \\
+   - \( \{2,3,5\} = 10 \)   \\
+   - \( \{2,3,7\} = 12 \)   \\
+   - \( \{2,3,8\} = 13 \)   \\
+   - \( \{2,5,7\} = 14 \)   \\
+   - \( \{2,5,8\} = 15 \)   \\
+   - \( \{2,7,8\} = 17 \)   \\
+   - \( \{3,5,7\} = 15 \)   \\
+   - \( \{3,5,8\} = 16 \)   \\    
+   - \( \{3,7,8\} = 18 \)   \\
+   - \( \{5,7,8\} = 20 \)   \\
+   - None sum to 19.        \\
+
+4. \textbf{Quadruples:} \\
+   - \( \{2,3,5,7\} = 17 \) \\
+   - \( \{2,3,5,8\} = 18 \) \\
+   - \( \{2,3,7,8\} = 20 \) \\
+   - \( \{2,5,7,8\} = 22 \) \\
+   - \( \{3,5,7,8\} = 23 \) \\
+   - None sum to 19.        \\
+
+5. \textbf{All elements:} \\
+   - \( \{2,3,5,7,8\} = 25 \)   \\
+   - Does not sum to 19.    \\
+   \\
+   
+Due to testing all possibilities, we conclude that since no subset of \( S \) sums to 19, we conclude that $(S,t)$ is not a yes-instance. Thus the answer to (a) is: NO \\
+
+\textbf{(b)} A brute force algorithm is not feasible for larger sets \( S \) because:
+
+- The number of possible subsets of a set with \( n \) elements is \( 2^n \).   \\
+- This exponential growth leads to impractical computation times:   \\
+  - For \( n = 30 \): \( 2^{30} \approx 1.0747 \times 10^9 \) subsets \\
+  - For \( n = 50 \): \( 2^{50} \approx 1.1259 \times 10^{15} \) subsets  \\
+  - For \( n = 100 \): \( 2^{100} \approx 1.268 \times 10^{30} \) subsets    \\
+- Even modern computers cannot check this many subsets in a reasonable time frame.  \\
+
+\textbf{(c)} The dynamic programming solution to SUBSET SUM uses a table-based approach that can be explained by the following components: \\
+
+1. Algorithm Structure: \\
+   - Creates a table \( F[0:n, B -> (classification)] \) w/ parameters \\
+     a) \( n \) is the number of elements \\
+     b) \( B \) is the target sum \\
+   - Each entry \( F(m,b) \) is 1 if there exists a subset of the first \( m \) numbers that sums to \( b \), and 0 otherwise \\
+
+2. Table Construction: \\
+   - Base cases:    \\
+     a) \( F(m,0) = 1 \) for all \( m \) (empty subset sums to 0) \\
+     b) \( F(0,t) = 0 \) for \( t > 0 \) (no elements can't sum to positive number) \\
+     c) \( F(m,t) = 0 \) for \( t < 0 \) (negative sums impossible with positive integers) \\ \\
+     d) Recurrence relation:   \\
+     - \( F(m,b) = \max(F(m-1,b), F(m-1,b-a_m)) \) \\
+     - This checks if we can get sum \( b \) either without \( a_m \) or by including \( a_m \) \\ 
+
+3. Why It's Not Polynomial Time: \\
+   - The algorithm's time and space complexity is \( O(nB) \) \\
+   - However, the actual input size is \( O(n \log B + \sum \log a_i) = O(n \log B) \) bits because: \\
+     a) Numbers are encoded in binary   \\
+     b) Each number takes \( \log B \) bits to represent    \\
+   - Therefore: \\
+     a) Input size is logarithmic in \( B \)    \\
+     b) Runtime \( O(nB) = O(n \times 2^{\log B}) \)    \\
+     c) This makes it exponential in terms of the input size    \\
+
+\textbf{Conclusion:} While this dynamic programming approach is more efficient than brute force enumeration, it is still a pseudo-polynomial time algorithm rather than a true polynomial time algorithm, as its runtime is exponential in terms of the input size (number of bits needed to represent the problem).
+\end{solution}
+
+\begin{problem} (20 points) % Set partition is NP complete
+Exercise 34.5-5 on page 1101 using the reduction SUBSET SUM $\le_p$ SET PARTITION. \\
+(Note from student: After trying to locate the question, I found the numbered question on page 1098) \\
+\textbf{34.5-5} \\
+The \textit{set-partition problem} takes as input a set \( S \) of numbers. The question is whether the numbers can be partitioned into two sets \( A \) and \( \bar{A} = S - A \) such that 
+\[ \sum_{x \in A} x = \sum_{x \in \bar{A}} x. \]
+Show that the set-partition problem is NP-complete.
+\end{problem}
+
+\begin{solution}
+To show that the set-partition problem is NP-complete, we need to prove the following:
+\begin{enumerate}
+    \item The problem is in NP.
+    \item The problem is NP-hard by reducing a known NP-complete problem to it.
+\end{enumerate}
+
+\textbf{-The set-partition problem is in NP:}
+\begin{itemize}
+    \item A problem is in NP if a proposed solution can be verified in polynomial time.
+    \item For the set-partition problem, given a partition \( A \) and \( \bar{A} \), we can:
+    \begin{enumerate}
+        \item Compute the sum of elements in \( A \) in \( O(n) \) time.
+        \item Compute the sum of elements in \( \bar{A} \) in \( O(n) \) time.
+        \item Compare the two sums in \( O(1) \) time.
+    \end{enumerate}
+    \item Since the verification process takes \( O(n) \) time, the set-partition problem is in NP.
+\end{itemize}
+
+\textbf{-The set-partition problem is NP-hard:}
+\begin{itemize}
+    \item To prove NP-hardness, we reduce the \textit{subset-sum problem} (known to be NP-complete) to the set-partition problem.
+    \item The subset-sum problem asks whether, given a set \( S \) of integers and a target \( t \), there exists a subset \( S' \subseteq S \) such that:
+    \[
+    \sum_{x \in S'} x = t.
+    \]
+    \item Given an instance of the subset-sum problem \( (S, t) \), we construct an instance of the set-partition problem as follows:
+    \begin{enumerate}
+        \item Compute the total sum of all elements in \( S \), denoted as \( T = \sum_{x \in S} x \).
+        \item Add a new element \( y = 2t - T \) to \( S \), creating a new set \( S' = S \cup \{y\} \).
+    \end{enumerate}
+    \item The set-partition problem for \( S' \) asks whether \( S' \) can be partitioned into two subsets \( A \) and \( \bar{A} \) such that:
+    \[
+    \sum_{x \in A} x = \sum_{x \in \bar{A}} x.
+    \]
+    \item If the subset-sum problem has a solution \( S_1 \subseteq S \) such that \( \sum_{x \in S_1} x = t \), then:
+    \begin{enumerate}
+        \item Let \( A = S_1 \cup \{y\} \) and \( \bar{A} = S - S_1 \).
+        \item The sum of elements in \( A \) is:
+        \[
+        \sum_{x \in A} x = t + y = t + (2t - T) = 2t - T + t = T.
+        \]
+        \item The sum of elements in \( \bar{A} \) is:
+        \[
+        \sum_{x \in \bar{A}} x = T - t.
+        \]
+        \item Since \( \sum_{x \in A} x = \sum_{x \in \bar{A}} x = T \), the set-partition problem has a solution.
+    \end{enumerate}
+    \item Conversely, if the set-partition problem for \( S' \) has a solution, then the subset-sum problem for \( (S, t) \) also has a solution.
+\end{itemize}
+
+\textbf{Conclusion:}
+\begin{itemize}
+    \item The set-partition problem is in NP.
+    \item The subset-sum problem reduces to the set-partition problem in polynomial time.
+    \item Therefore, the set-partition problem is NP-complete.
+\end{itemize}
+\end{solution}
+
+
+\textbf{Make sure that you write the solutions in your own words!}
+\medskip
+
+
+
+\goodbreak
+\checklist
+\end{document}
